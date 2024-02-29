@@ -1,0 +1,14 @@
+{
+  "name": "hardhatdapp",
+  "version": "1.0.0",
+  "description": "An ethereum dapp using hardhat",
+  "main": "index.js",
+  "author": "Csiszar Alex",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-web3-v4": "^1.0.0",
+    "hardhat": "^2.20.1",
+    "web3": "^4.5.0"
+  }
+}
