@@ -5,6 +5,13 @@
   "main": "index.js",
   "author": "Csiszar Alex",
   "license": "MIT",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "node": "npx hardhat node",
+    "deploy": "npx hardhat run scripts/deploy.js",
+    "console": "npx hardhat console"
+  },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@nomicfoundation/hardhat-web3-v4": "^1.0.0",
