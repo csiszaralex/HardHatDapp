@@ -6,16 +6,21 @@
   "author": "Csiszar Alex",
   "license": "MIT",
   "scripts": {
-    "compile": "npx hardhat compile",
-    "test": "npx hardhat test",
-    "node": "npx hardhat node",
-    "deploy": "npx hardhat run scripts/deploy.ts --network localhost",
-    "console": "npx hardhat console"
+    "compile": "hardhat compile",
+    "test": "hardhat test",
+    "node": "hardhat node",
+    "deploy": "hardhat run scripts/deploy.ts --network localhost",
+    "console": "hardhat console"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@nomicfoundation/hardhat-web3-v4": "^1.0.0",
     "hardhat": "^2.20.1",
     "web3": "^4.5.0"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "trailingComma": "all"
   }
 }
