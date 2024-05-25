@@ -4,26 +4,29 @@ import { ContractTransactionResponse } from 'ethers';
 import fs from 'fs';
 
 async function main() {
-  const dones = { ballot: '' };
-  const ballot = await ethers.deployContract('Ballot', [
-    [
-      web3.utils.padRight(web3.utils.asciiToHex('Proposal A'), 64),
-      web3.utils.padRight(web3.utils.asciiToHex('Bela'), 64),
-      web3.utils.padRight(web3.utils.asciiToHex('Cili'), 64),
-      //0x50726f706f73616c204100000000000000000000000000000000000000000000
-      //0x50726f706f73616c2041000000000000000000000000000000000000000000
-    ],
-    web3.utils.padRight(web3.utils.asciiToHex('Who is the best?'), 64),
-    new Date().getTime(),
-    600,
-    600000,
-  ]);
-  await ballot.waitForDeployment();
-  dones.ballot = await ballot.getAddress();
-  console.log(`Ballott deployed to ${ballot.target}`);
+  const dones: { ballots: string[] } = { ballots: [] };
+
+  const b1 = await createBallot(2, 120, 'Who is the best?', ['Bela', 'Cili', 'Dani']);
+  const b2 = await createBallot(30, 300, 'Jo lesz?', ['Igen', 'Nem']);
+
+  dones.ballots.push(b1);
+  dones.ballots.push(b2);
+
 
   const str = JSON.stringify(dones);
   fs.writeFileSync('dones.json', str);
+}
+
+async function createBallot(start: number, end: number, question: string, proposals: string[]): Promise<string> {
+  const ballot = await ethers.deployContract('Ballot', [
+    [...proposals.map((proposal) => web3.utils.padRight(web3.utils.asciiToHex(proposal), 64))],
+    web3.utils.padRight(web3.utils.asciiToHex(question), 64),
+    new Date().getTime(),
+    start * 1000,
+    end * 1000,
+  ]);
+  await ballot.waitForDeployment();
+  return ballot.target.toString();
 }
 
 async function mainx() {

@@ -19,11 +19,12 @@ contract Ballot {
   error TooLate(uint time);
 
   modifier onlyBeforeEnd() {
+    //TODO
     if (block.timestamp >= endTime) revert TooLate(endTime);
     _;
   }
   modifier onlyAfterEnd() {
-    if (block.timestamp <= endTime) revert TooEarly(endTime);
+    if (block.timestamp <= endTime - createTime) revert TooEarly(endTime);
     _;
   }
 
@@ -34,7 +35,7 @@ contract Ballot {
   uint public startTime;
   uint public endTime;
 
-  constructor(bytes32[] memory proposalNames,bytes32 n, uint currentTime, uint from, uint to) {
+  constructor(bytes32[] memory proposalNames, bytes32 n, uint currentTime, uint from, uint to) {
     name = n;
     createTime = currentTime;
     startTime = createTime + from;
@@ -47,6 +48,7 @@ contract Ballot {
 
   function vote(uint proposal) external onlyBeforeEnd {
     Voter storage sender = voters[msg.sender];
+    console.log('ITT');
     // require(sender.weight != 0, 'Has no right to vote');
     require(!sender.voted, 'Already voted.');
     sender.voted = true;
